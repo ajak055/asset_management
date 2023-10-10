@@ -22,3 +22,23 @@ class CouchDB:
         db = self.dbObject[dbname]
         db.save(document)
         logger.info("Data: insertDocument exited")
+    
+    def findDocument(self, dbname, query, logger):
+        logger.info("Data: findDocument invoked")
+        query_response = []
+        db = self.dbObject[dbname]
+        result = db.find(query)
+        for i in result:
+            query_response.append(i)
+        logger.info("Data: findDocument exited")
+        return query_response
+    
+    def findSingleDocument(self, dbname, query, logger):
+        logger.info("Data: findSingleDocument invoked")
+        query_response = []
+        db = self.dbObject[dbname]
+        result = db.find(query)
+        for i in result:
+            query_response.append(i)
+        logger.info("Data: findSingleDocument exited")
+        return query_response[0]

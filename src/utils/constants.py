@@ -12,9 +12,16 @@ class Constants:
             "UNAUTHORISED" : 401,
             "UNKNOWN_ERROR" : 500
         }
+        self.__query_constants = {
+            "LIMIT" : 10,
+            "SKIP" : 0
+        }
     
-    def httpConstants(self, type: str, message: str)-> dict:
+    def httpConstants(self, type: str)-> dict:
         if type in self.__http_codes:
             return self.__http_codes[type]
         else:
             return self.__http_codes['UNKNOWN_ERROR']
+    
+    def queryConstants(self, input):
+        return self.__query_constants[input]
