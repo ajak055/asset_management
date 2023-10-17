@@ -3,6 +3,8 @@ from utils.logger import Logger
 from business.createAsset import CreateAsset
 from business.fetchAsset import FetchAsset
 from business.fetchAssetById import FetchAssetById
+from business.updateAsset import UpdateAsset
+from business.deleteAsset import DeleteAsset
 from data.db import CouchDB
 from utils.response import success_response, failure_response
 
@@ -18,12 +20,15 @@ def hello_world():
 
 @app.route("/v1/assetmanagement", methods = ['POST'])
 def createAsset():
-   logger = Logger("asset_management")
-   if request.method == 'POST':
-      logger.info("API: create asset invoked")
-      input = request.get_json()
-      result = CreateAsset(input, db_handler).add_document_to_db(logger)
-      return jsonify(result)
+   try:
+      logger = Logger("asset_management")
+      if request.method == 'POST':
+         logger.info("API: create asset invoked")
+         input = request.get_json()
+         result = CreateAsset(input, db_handler).add_document_to_db(logger)
+         return jsonify(result)
+   except Exception as e:
+      return failure_response(e)
 
 @app.route("/v1/assetmanagement", methods = ['GET'])
 def fetchAsset():
@@ -37,26 +42,34 @@ def fetchAsset():
 
 @app.route("/v1/assetmanagement/<id>", methods = ['GET'])
 def fetchAssetById(id):
-   print("fetch id is ", str(id))
-   logger = Logger("asset_management")
-   logger.info("API: fetch asset by id invoked")
-   response = FetchAssetById(id, db_handler).fetchDocument(logger)
-   return success_response(response)
+   try:
+      print("fetch id is ", str(id))
+      logger = Logger("asset_management")
+      logger.info("API: fetch asset by id invoked")
+      response = FetchAssetById(id, db_handler).fetchDocument(logger)
+      return success_response(response)
+   except Exception as e:
+      return failure_response(e)
 
 @app.route("/v1/assetmanagement/<id>", methods = ['PUT'])
 def updateAsset(id):
-   logger = Logger("asset_management")
-   logger.info("API: fetch asset invoked")
-   logger.info("given id is "+str(id))
-   return jsonify({"message" : "asset updated"})
+   try:
+      logger = Logger("asset_management")
+      logger.info("API: update asset invoked")
+      input = request.get_json()
+      response = UpdateAsset(id, db_handler, input).update_asset(logger)
+      return success_response(response)
+   except Exception as err:
+      return failure_response(err)
+     
+
 
 @app.route("/v1/assetmanagement/<id>", methods = ['DELETE'])
 def deleteAsset(id):
    logger = Logger("asset_management")
-   logger.info("given id is ",id)
    logger.info("API: delete asset invoked")
-   return jsonify({"message" : "asset deleted"})
-
+   response = DeleteAsset(id, db_handler).deleteAsset(logger)
+   return success_response(response)
 
 if __name__ == '__main__':
    app.run()

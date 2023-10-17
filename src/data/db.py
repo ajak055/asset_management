@@ -1,5 +1,5 @@
 import couchdb
-
+from utils.error import *
 class CouchDB:
 
     def __init__(self, url, username, password, port=5984) -> None:
@@ -41,4 +41,12 @@ class CouchDB:
         for i in result:
             query_response.append(i)
         logger.info("Data: findSingleDocument exited")
+        if len(query_response) == 0:
+            raise NotFoundError("Data deosn't exists for given Id")
         return query_response[0]
+    
+    def deleteDocument(self, dbname, document, logger):
+        logger.info("Data: deleteDocument invoked")
+        db = self.dbObject[dbname]
+        db.delete(document)
+        logger.info("Data: deleteDocument exited")

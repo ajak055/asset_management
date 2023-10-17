@@ -26,7 +26,7 @@ class CreateAsset:
             "description": "asset management service" if self.data['description'] is not None else self.data['description'],
             "createDate": date.isoformat(),
             "modifiedDate" : date.isoformat(),
-            "_etag" : str(uuid.uuid4())
+            "etag" : str(uuid.uuid4())
         }
         logger.info("Business: CreateAsset: prepare_document exited")
         return document
@@ -36,7 +36,7 @@ class CreateAsset:
 
         document = self.__prepare_document(logger)
         self.db_object.insertDocument("test", document, logger)
-        return {"message": "asset created successfully"}
+        return {"message": "asset created successfully", "id": document["assetId"]}
     
     def serialize_datetime(self, obj):
         if isinstance(obj, datetime.datetime):

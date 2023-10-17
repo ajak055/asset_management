@@ -25,7 +25,6 @@ class FetchAsset:
     def fetchDocument(self, logger):
         self.validateRequest()
         find_query = self.__prepare_query()
-        print("query ", find_query)
         result = self.db_object.findDocument("test", find_query, logger)
         return self.__prepareResponse(result)
         

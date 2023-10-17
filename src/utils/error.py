@@ -19,9 +19,9 @@ class BusinessValidationError(Exception):
         super().__init__(self.message)
 
 
-if __name__ == "__main__":
-    try:
-        raise BusinessValidationError("tessssst")
-    except Exception as err:
-        print('A New Exception occurred: ', err.message)
-       
+class NotFoundError(Exception):
+
+    def __init__(self, message) -> None:
+        self.message = message
+        self.code =  404
+        super().__init__(self.message)
