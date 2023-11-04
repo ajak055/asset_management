@@ -1,14 +1,16 @@
 import datetime
 import uuid
+import validators
 class CreateAsset:
 
-    def __init__(self, data: dict, db_object) -> None:
+    def __init__(self, data: dict, db_object) -> None: 
         self.data = data
         self.db_object = db_object
 
     def validate_request(self, logger):
         logger.info("Business: CreateAsset: validate_request invoked")
-        #
+        
+        
 
         logger.info("Business: CreateAsset: validate_request exited")
 
