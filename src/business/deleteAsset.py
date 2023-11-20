@@ -1,3 +1,4 @@
+import utils.env_constants as const
 
 class DeleteAsset:
 
@@ -11,9 +12,7 @@ class DeleteAsset:
     def deleteAsset(self, logger):
         query = self.__prepare_query()
         fetch_result = self.db_object.findSingleDocument("test", query, logger)
-        print("fetch_result", fetch_result["_id"])
-        result = self.db_object.deleteDocument("test", fetch_result, logger)
-        print(result)
+        result = self.db_object.deleteDocument(const.DB_NAME, fetch_result, logger)
         return self.__deleteResponse()
 
     def __deleteResponse(self):

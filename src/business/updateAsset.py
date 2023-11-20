@@ -1,6 +1,6 @@
 from utils.error import *
 import datetime
-
+import utils.env_constants as const
 
 class UpdateAsset:
 
@@ -11,7 +11,7 @@ class UpdateAsset:
 
     def __validateRequest(self, logger):
         get_doc_query = { "selector": {"assetId" : {"$eq": self.id}}}
-        result = self.db_object.findSingleDocument("test", get_doc_query, logger)
+        result = self.db_object.findSingleDocument(const.DB_NAME, get_doc_query, logger)
         return self.__prepare_query(self.request, result)
         
 

@@ -6,17 +6,13 @@ from business.fetchAssetById import FetchAssetById
 from business.updateAsset import UpdateAsset
 from business.deleteAsset import DeleteAsset
 from data.db import CouchDB
+import utils.env_constants as const
 from utils.response import success_response, failure_response
 
 app = Flask(__name__)
 
-db_handler = CouchDB("127.0.0.1", "assetmgmt", "pass123", 5984)
+db_handler = CouchDB(const.URL, const.USERNAME, const.PASSWORD, 5984)
 db_handler.connect()
-
-@app.route('/')
-def hello_world():
-   return "Hello World"
-
 
 @app.route("/v1/assetmanagement", methods = ['POST'])
 def createAsset():
@@ -72,4 +68,4 @@ def deleteAsset(id):
    return success_response(response)
 
 if __name__ == '__main__':
-   app.run()
+   app.run(host = '0.0.0.0', port=8000, debug=False)

@@ -1,4 +1,5 @@
 from utils.error import *
+import utils.env_constants as const
 
 class FetchAssetById:
 
@@ -15,7 +16,7 @@ class FetchAssetById:
         logger.info("Business: fetchDocument by id invoked")
         self.__validate_request()
         query = self.__prepare_query()
-        result = self.db_object.findSingleDocument("test", query, logger)
+        result = self.db_object.findSingleDocument(const.DB_NAME, query, logger)
         return result
 
     
