@@ -1,6 +1,8 @@
 import datetime
 import uuid
 import validators
+import utils.env_constants as const
+
 class CreateAsset:
 
     def __init__(self, data: dict, db_object) -> None: 
@@ -10,8 +12,6 @@ class CreateAsset:
     def validate_request(self, logger):
         logger.info("Business: CreateAsset: validate_request invoked")
         
-        
-
         logger.info("Business: CreateAsset: validate_request exited")
 
     def __prepare_document(self, logger):
@@ -37,7 +37,7 @@ class CreateAsset:
         logger.info("Business: CreateAsset: add_document_to_db invoked")
 
         document = self.__prepare_document(logger)
-        self.db_object.insertDocument("test", document, logger)
+        self.db_object.insertDocument(const.DB_NAME, document, logger)
         return {"message": "asset created successfully", "id": document["assetId"]}
     
     def serialize_datetime(self, obj):

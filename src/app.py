@@ -6,13 +6,13 @@ from business.fetchAssetById import FetchAssetById
 from business.updateAsset import UpdateAsset
 from business.deleteAsset import DeleteAsset
 from data.db import CouchDB
+import utils.env_constants as const
 from utils.response import success_response, failure_response
 
 app = Flask(__name__)
 
-db_handler = CouchDB("busy_cori", "assetmgmt", "pass123", 5984)
+db_handler = CouchDB(const.URL, const.USERNAME, const.PASSWORD, 5984)
 db_handler.connect()
-
 
 @app.route("/v1/assetmanagement", methods = ['POST'])
 def createAsset():

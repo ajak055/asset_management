@@ -1,6 +1,6 @@
 from utils.error import *
 import json
-
+import utils.env_constants as const
 class FetchAsset:
 
     def __init__(self, query: dict, db_object) -> None:
@@ -25,7 +25,7 @@ class FetchAsset:
     def fetchDocument(self, logger):
         self.validateRequest()
         find_query = self.__prepare_query()
-        result = self.db_object.findDocument("test", find_query, logger)
+        result = self.db_object.findDocument(const.DB_NAME, find_query, logger)
         return self.__prepareResponse(result)
         
     def __prepareResponse(self, result):

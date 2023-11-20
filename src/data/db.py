@@ -11,8 +11,7 @@ class CouchDB:
 
     def connect(self):
         db_url = "http://{user}:{pwd}@{host}:{dbport}/".format(user=self.username, pwd=self.password, host=self.url, dbport=self.port)
-        print(db_url)
-        self.dbObject = couchdb.Server(db_url) 
+        self.dbObject = couchdb.Server(db_url)
     
     def createDb(self, dbname):
         self.dbObject(dbname)

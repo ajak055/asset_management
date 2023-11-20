@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "validators": "^0.3.1"
+  }
+}
